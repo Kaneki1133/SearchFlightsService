@@ -37,3 +37,23 @@ PORT = 3000
 ```bash
 npx sequelize db:create
 ```
+<<<<<<< HEAD
+=======
+
+* and then execute 
+
+```bash
+`npx sequelize db:migrate`
+```
+
+## DataBase Design
+  * Airplane Table
+  * Flight
+  * Airport
+  * City
+
+  ### RelationShip
+  * A flight belongs to an airplane but one airplane can be used in multiple flights
+  * A city has many airports but one airport belongs to a city
+  * One Airport can have many flights, but a flight belongs to one airport
+>>>>>>> 44ba046 (Added city model and migrations)
