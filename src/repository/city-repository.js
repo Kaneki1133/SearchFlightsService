@@ -41,7 +41,7 @@ class CityRepository{
         }
     }
 
-    async updateCity(cityId , data){
+    async updateCity(cityId , data){            //* Data will look like {name:`Prayagraj`}
         try{
             const city = await City.update(data,{
                 where:{
@@ -59,4 +59,4 @@ class CityRepository{
 }
 
 
-module.exports = cityRepository;
+module.exports = CityRepository;
