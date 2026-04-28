@@ -64,3 +64,10 @@ npx sequelize db:create
   ```bash
   npx sequelize-cli model:generate --name Airport --attributes name:String,address:String,cityId:integer
   ```
+
+  Now When we need to populate our Database with some `Static data` we use Seeders 
+  * We Create seeders file in Sequelize by 
+  ```bash
+  npx sequelize seed:generate --name add-airplanes
+  ```
+  running this will create a new seed file in which we can write our static data
