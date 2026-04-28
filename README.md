@@ -60,3 +60,7 @@ npx sequelize db:create
   ### City --> id, name, created_at, updated_at   
   ### Airport --> id, name, address, city_id, created_at, updated_at 
   * RelationShip --> City has many airports and Airports belongs to a City (one to many)
+
+  ```bash
+  npx sequelize-cli model:generate --name Airport --attributes name:String,address:String,cityId:integer
+  ```
