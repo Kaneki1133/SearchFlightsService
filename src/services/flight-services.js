@@ -25,8 +25,14 @@ class FlightService{
         }
     }
 
-    async getFlightData(){
-        //Todo
+    async getAllFlightData(data){
+        try {
+            const flights = await this.FlightRepository.getAllFlights(data);
+            return flights;
+        } catch (error) {
+            console.log("Something Went Wrong in the Service Layer");
+            throw {error};
+        }
     }
 }
 
@@ -45,6 +51,4 @@ module.exports = FlightService;
  *      price,
  *!      totalSeats --> will get from airplane table
  * }
- * 
- * 
  */
