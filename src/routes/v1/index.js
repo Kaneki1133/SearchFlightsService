@@ -3,8 +3,9 @@ const CityController = require(`../../controllers/city-controller`);
 
 //const AirportController = require(`../../controllers/airport-controller`);
 const FlightController = require(`../../controllers/flight-controller`);
+const AirportController = require(`../../controllers/airport-controller`);  //* Created through CRUD repo
 
-const AirportController = require(`../../controllers/airport-controller`);
+const { FlightMiddlewares } = require(`../../middlewares/index`);
 
 const router = express.Router();
 
@@ -26,7 +27,12 @@ router.patch('/city/:id' , CityController.update);
 
 //* Flight Routes
 
-router.post('/flights' , FlightController.create);
+router.post( 
+    '/flights', 
+    FlightMiddlewares.validateCreateFlight,         // So Now Before you actaully call the Flightcontroller.create you hit the `validateCreateFlight` Middleware
+    FlightController.create
+);
+
 router.get('/flights', FlightController.getAll);
 
 
