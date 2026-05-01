@@ -4,9 +4,7 @@ const airportService = new AirportService();
 
 const create = async (req , res) =>{
     try {
-        const airport = await airportService.create(req.body);
-        console.log("below are the req.body");
-        console.log(req.body);
+        const airport = await airportService.createAirport(req.body);
         return  res.status(201).json({
             data:airport,
             success:true,
@@ -14,7 +12,6 @@ const create = async (req , res) =>{
             err:{},
         });
     } catch (error) {
-        console.log(error);
         return res.status(500).json({
             data:{},
             success:false,
@@ -26,7 +23,7 @@ const create = async (req , res) =>{
 
 const destroy = async (req , res) =>{
     try {
-        const response = await airportService.destroy(req.params.id);
+        const response = await airportService.deleteAirport(req.params.id);
         return  res.status(200).json({
             data:response,
             success:true,
@@ -45,7 +42,7 @@ const destroy = async (req , res) =>{
 
 const get = async (req , res) =>{
     try {
-        const airport = await airportService.get(req.params.id);
+        const airport = await airportService.getAirport(req.params.id);
         return  res.status(200).json({
             data:airport,
             success:true,
@@ -64,7 +61,12 @@ const get = async (req , res) =>{
 
 const update = async (req , res) =>{
     try {
-        const airport = await airportService.update(req.params.id , req.body);
+        const airport = await airportService.updateAirport({
+            airportId:req.params.id,
+            name: req.body.name,
+            address: req.body.address,
+            cityId: req.body.cityId,
+        });
         return res.status(200).json({
             data:airport,
             success:true,
@@ -80,6 +82,7 @@ const update = async (req , res) =>{
         });
     }
 }
+
 
 const getAll = async (req , res) =>{
     try {
@@ -99,6 +102,7 @@ const getAll = async (req , res) =>{
         });
     }
 }
+
 
 module.exports = {
     create,
