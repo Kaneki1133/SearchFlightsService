@@ -1,42 +1,42 @@
 const { Flight } = require('../models/index');
 const { Op } = require(`sequelize`);
 
-class FlightRepository{
+class FlightRepository {
 
-    #createFilter(data){                         //* Private Memeber Function just declare it using `#`
+    #createFilter(data) {                         //* Private Memeber Function just declare it using `#`
         let filter = {};
 
-        if(data.arrivalAirportId){
-            filter.arrivalAirportId =  data.arrivalAirportId;
+        if (data.arrivalAirportId) {
+            filter.arrivalAirportId = data.arrivalAirportId;
         }
-        
-        if(data.departureAirportId){
+
+        if (data.departureAirportId) {
             filter.departureAirportId = data.departureAirportId;
         }
 
-        if(data.minPrice && data.maxPrice){
+        if (data.minPrice && data.maxPrice) {
             filter = {
                 ...filter,
-                price:{
-                    [Op.between]:[data.minPrice , data.maxPrice],
+                price: {
+                    [Op.between]: [data.minPrice, data.maxPrice],
                 }
             }
         }
 
-        else if(data.minPrice){
+        else if (data.minPrice) {
             filter = {
                 ...filter,
-                price:{
-                    [Op.lte]: data.minPrice,
+                price: {
+                    [Op.gte]: data.minPrice,
                 }
             }
         }
 
 
-        else if(data.maxPrice){
+        else if (data.maxPrice) {
             filter = {
                 ...filter,
-                price:{
+                price: {
                     [Op.lte]: data.maxPrice,
                 }
             }
@@ -46,39 +46,52 @@ class FlightRepository{
         return filter;
     }
 
-    async create(data){
+    async create(data) {
         try {
             const flight = await Flight.create(data);
             return flight;
         } catch (error) {
             console.log("Something Went wrong in the repository layer");
-            throw {error};
+            throw { error };
         }
     }
 
-    async getFlight(flightId){
+    async getFlight(flightId) {
         try {
             const flight = await Flight.findByPk(flightId);
             return flight;
         } catch (error) {
             console.log("Something Went Wrong in The Repository LAyer");
-            throw {error};
+            throw { error };
         }
     }
 
-    async getAllFlights(filter){
+    async getAllFlights(filter) {
         try {
             const filterObject = this.#createFilter(filter);
             //console.log(filterObject)
             const flights = await Flight.findAll({
-                where: filterObject, 
+                where: filterObject,
             });
             return flights;
         } catch (error) {
             console.log("Something Went Wrong in The Repository Layer");
             throw { error };
         }
+    }
 
+    async updateFlight(flightId, data) {
+        try {
+            await Flight.update(data, {
+                where: {
+                    id: flightId
+                }
+            });
+            return true;
+        } catch (error) {
+            console.log("Something Went Wrong in The Repository Layer of Flights While Updating the Flight");
+            throw { error };
+        }
     }
 
 }

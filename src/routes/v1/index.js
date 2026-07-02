@@ -1,4 +1,4 @@
-const express = require(`express`); 
+const express = require(`express`);
 const CityController = require(`../../controllers/city-controller`);
 
 //const AirportController = require(`../../controllers/airport-controller`);
@@ -11,11 +11,11 @@ const router = express.Router();
 
 
 //* City Routes
-router.post('/city' , CityController.create);
-router.delete('/city/:id' , CityController.destroy);
-router.get('/city/:id' , CityController.get);
-router.get('/city' , CityController.getAll)
-router.patch('/city/:id' , CityController.update);
+router.post('/city', CityController.create);
+router.delete('/city/:id', CityController.destroy);
+router.get('/city/:id', CityController.get);
+router.get('/city', CityController.getAll)
+router.patch('/city/:id', CityController.update);
 
 // //* Airport Routes
 // router.post('/airport', AirportController.create);
@@ -27,14 +27,15 @@ router.patch('/city/:id' , CityController.update);
 
 //* Flight Routes
 
-router.post( 
-    '/flights', 
+router.post(
+    '/flights',
     FlightMiddlewares.validateCreateFlight,         // So Now Before you actaully call the Flightcontroller.create you hit the `validateCreateFlight` Middleware
     FlightController.create
 );
 
 router.get('/flights', FlightController.getAll);
-
+router.get('/flights/:id', FlightController.get);
+router.patch('/flights/:id', FlightController.update);
 
 //* new AirpotImplementation using CRUD Repo 
 router.post('/airports', AirportController.create);
