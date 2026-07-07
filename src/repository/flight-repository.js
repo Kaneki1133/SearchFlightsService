@@ -41,7 +41,7 @@ class FlightRepository {
                 }
             }
         }
-        console.log(filter);
+        console.log("The Filter for getting all flights with " , filter);
 
         return filter;
     }
@@ -69,10 +69,11 @@ class FlightRepository {
     async getAllFlights(filter) {
         try {
             const filterObject = this.#createFilter(filter);
-            //console.log(filterObject)
+            console.log("The filter object looks like ",filterObject)
             const flights = await Flight.findAll({
                 where: filterObject,
             });
+            console.log("All the FLight that suits the filter are \n" , flights);
             return flights;
         } catch (error) {
             console.log("Something Went Wrong in The Repository Layer");
@@ -100,6 +101,7 @@ module.exports = FlightRepository;
 
 
 /**
+ *      Filter will Check like this 
  *      where:{
  *          arrivalAirportId:2,
  *          departureAirportId:4,
